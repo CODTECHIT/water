@@ -8,6 +8,7 @@ import {
   Package,
   LogOut,
   Menu,
+  QrCode,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,7 @@ const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: bo
   { to: "/admin/orders", label: "Orders", icon: ShoppingCart },
   { to: "/admin/customers", label: "Customers", icon: Users },
   { to: "/admin/cashback", label: "Cashback Claims", icon: Wallet },
+  { to: "/admin/qr", label: "QR Codes", icon: QrCode },
   { to: "/admin/products", label: "Products / Pricing", icon: Package },
 ];
 

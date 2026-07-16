@@ -12,7 +12,7 @@ type Order = {
   id: string;
   customer: string;
   email: string;
-  pack: "15 cans" | "30 cans";
+  pack: string;
   date: string;
   status: "Pending" | "Delivered";
   cashback: number;
@@ -32,7 +32,9 @@ const seed: Order[] = [
 function OrdersPage() {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
-  const [pack, setPack] = useState<"15 cans" | "30 cans">("15 cans");
+  const [packSelect, setPackSelect] = useState("15 cans");
+  const [customPack, setCustomPack] = useState("");
+  const [customCashback, setCustomCashback] = useState(0);
 
   const filtered = useMemo(
     () =>
@@ -119,17 +121,29 @@ function OrdersPage() {
               </div>
               <div>
                 <label className="text-xs font-medium text-slate-700">Pack type</label>
-                <select value={pack} onChange={(e) => setPack(e.target.value as "15 cans" | "30 cans")} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]">
-                  <option>15 cans</option>
-                  <option>30 cans</option>
+                <select value={packSelect} onChange={(e) => setPackSelect(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]">
+                  <option value="15 cans">15 cans</option>
+                  <option value="30 cans">30 cans</option>
+                  <option value="Custom">Custom...</option>
                 </select>
               </div>
+              {packSelect === "Custom" && (
+                <div>
+                  <label className="text-xs font-medium text-slate-700">Custom Pack Description</label>
+                  <input value={customPack} onChange={(e) => setCustomPack(e.target.value)} required type="text" placeholder="e.g. 50 cans, Event setup, etc." className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]" />
+                </div>
+              )}
               <div>
                 <label className="text-xs font-medium text-slate-700">Order date</label>
                 <input type="date" className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]" />
               </div>
-              <div className="rounded-md bg-slate-50 px-3 py-2 text-xs text-slate-600">
-                Cashback for this order: <span className="font-semibold text-[#8E2A6B]">₹{pack === "15 cans" ? 50 : 100}</span>
+              <div className="rounded-md bg-slate-50 px-3 py-2">
+                <label className="text-xs font-medium text-slate-600 block mb-1">Cashback for this order (₹)</label>
+                {packSelect === "Custom" ? (
+                  <input type="number" required min="0" value={customCashback} onChange={e => setCustomCashback(Number(e.target.value))} className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]" />
+                ) : (
+                  <div className="font-semibold text-[#8E2A6B] text-lg">₹{packSelect === "15 cans" ? 50 : 100}</div>
+                )}
               </div>
               <div className="flex justify-end gap-2 pt-2">
                 <button type="button" onClick={() => setOpen(false)} className="rounded-md border border-slate-300 px-3.5 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Cancel</button>

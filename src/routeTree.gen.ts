@@ -18,6 +18,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminTdsRouteImport } from './routes/admin.tds'
+import { Route as AdminQrRouteImport } from './routes/admin.qr'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
@@ -69,6 +70,11 @@ const AdminTdsRoute = AdminTdsRouteImport.update({
   path: '/admin/tds',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminQrRoute = AdminQrRouteImport.update({
+  id: '/admin/qr',
+  path: '/admin/qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProductsRoute = AdminProductsRouteImport.update({
   id: '/admin/products',
   path: '/admin/products',
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/qr': typeof AdminQrRoute
   '/admin/tds': typeof AdminTdsRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/qr': typeof AdminQrRoute
   '/admin/tds': typeof AdminTdsRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/qr': typeof AdminQrRoute
   '/admin/tds': typeof AdminTdsRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/orders'
     | '/admin/products'
+    | '/admin/qr'
     | '/admin/tds'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/orders'
     | '/admin/products'
+    | '/admin/qr'
     | '/admin/tds'
     | '/admin'
   id:
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/orders'
     | '/admin/products'
+    | '/admin/qr'
     | '/admin/tds'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -208,6 +220,7 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminProductsRoute: typeof AdminProductsRoute
+  AdminQrRoute: typeof AdminQrRoute
   AdminTdsRoute: typeof AdminTdsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -277,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTdsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/qr': {
+      id: '/admin/qr'
+      path: '/admin/qr'
+      fullPath: '/admin/qr'
+      preLoaderRoute: typeof AdminQrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/products': {
       id: '/admin/products'
       path: '/admin/products'
@@ -328,6 +348,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminProductsRoute: AdminProductsRoute,
+  AdminQrRoute: AdminQrRoute,
   AdminTdsRoute: AdminTdsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
