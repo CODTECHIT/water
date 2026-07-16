@@ -12,6 +12,7 @@ type Customer = {
   id: string;
   name: string;
   email: string;
+  phone: string;
   totalOrders: number;
   totalCashback: number;
   joined: string;
@@ -20,25 +21,25 @@ type Customer = {
 };
 
 const customers: Customer[] = [
-  { id: "C-001", name: "Ritika Sharma", email: "ritika@example.com", totalOrders: 18, totalCashback: 1080, joined: "2025-03-12", lastOrder: "2026-07-15",
+    { id: "C-001", name: "Ritika Sharma", email: "ritika@example.com", phone: "+91 9876543210", totalOrders: 18, totalCashback: 1080, joined: "2025-03-12", lastOrder: "2026-07-15",
     history: [
-      { id: "ORD-2841", pack: "30 cans", date: "2026-07-15", cashback: 90 },
-      { id: "ORD-2790", pack: "30 cans", date: "2026-06-28", cashback: 90 },
-      { id: "ORD-2731", pack: "15 cans", date: "2026-06-10", cashback: 40 },
+      { id: "ORD-2841", pack: "30 cans", date: "2026-07-15", cashback: 100 },
+      { id: "ORD-2790", pack: "30 cans", date: "2026-06-28", cashback: 100 },
+      { id: "ORD-2731", pack: "15 cans", date: "2026-06-10", cashback: 50 },
     ] },
-  { id: "C-002", name: "Anushka Rao", email: "anushka@example.com", totalOrders: 9, totalCashback: 420, joined: "2025-08-04", lastOrder: "2026-07-15",
+  { id: "C-002", name: "Anushka Rao", email: "anushka@example.com", phone: "+91 9876543211", totalOrders: 9, totalCashback: 420, joined: "2025-08-04", lastOrder: "2026-07-15",
     history: [
-      { id: "ORD-2840", pack: "15 cans", date: "2026-07-15", cashback: 40 },
-      { id: "ORD-2712", pack: "15 cans", date: "2026-06-01", cashback: 40 },
+      { id: "ORD-2840", pack: "15 cans", date: "2026-07-15", cashback: 50 },
+      { id: "ORD-2712", pack: "15 cans", date: "2026-06-01", cashback: 50 },
     ] },
-  { id: "C-003", name: "Farah Khan", email: "farah@example.com", totalOrders: 24, totalCashback: 1740, joined: "2024-11-20", lastOrder: "2026-07-14",
+  { id: "C-003", name: "Farah Khan", email: "farah@example.com", phone: "+91 9876543212", totalOrders: 24, totalCashback: 1740, joined: "2024-11-20", lastOrder: "2026-07-14",
     history: [
-      { id: "ORD-2839", pack: "30 cans", date: "2026-07-14", cashback: 90 },
-      { id: "ORD-2801", pack: "30 cans", date: "2026-07-01", cashback: 90 },
+      { id: "ORD-2839", pack: "30 cans", date: "2026-07-14", cashback: 100 },
+      { id: "ORD-2801", pack: "30 cans", date: "2026-07-01", cashback: 100 },
     ] },
-  { id: "C-004", name: "Mihir Patel", email: "mihir@example.com", totalOrders: 6, totalCashback: 240, joined: "2026-01-15", lastOrder: "2026-07-14", history: [] },
-  { id: "C-005", name: "Karthik Nair", email: "karthik@example.com", totalOrders: 15, totalCashback: 990, joined: "2025-05-22", lastOrder: "2026-07-13", history: [] },
-  { id: "C-006", name: "Neha Bansal", email: "neha@example.com", totalOrders: 4, totalCashback: 160, joined: "2026-04-01", lastOrder: "2026-07-13", history: [] },
+  { id: "C-004", name: "Mihir Patel", email: "mihir@example.com", phone: "+91 9876543213", totalOrders: 6, totalCashback: 240, joined: "2026-01-15", lastOrder: "2026-07-14", history: [] },
+  { id: "C-005", name: "Karthik Nair", email: "karthik@example.com", phone: "+91 9876543214", totalOrders: 15, totalCashback: 990, joined: "2025-05-22", lastOrder: "2026-07-13", history: [] },
+  { id: "C-006", name: "Neha Bansal", email: "neha@example.com", phone: "+91 9876543215", totalOrders: 4, totalCashback: 160, joined: "2026-04-01", lastOrder: "2026-07-13", history: [] },
 ];
 
 function CustomersPage() {
@@ -76,7 +77,10 @@ function CustomersPage() {
             {filtered.map((c) => (
               <tr key={c.id} onClick={() => setSelected(c)} className="cursor-pointer hover:bg-slate-50">
                 <td className="px-5 py-3 font-medium text-slate-900">{c.name}</td>
-                <td className="px-5 py-3 text-slate-600">{c.email}</td>
+                <td className="px-5 py-3 text-slate-600">
+                  <div>{c.email}</div>
+                  <div className="text-xs text-slate-400 mt-0.5">{c.phone}</div>
+                </td>
                 <td className="px-5 py-3 text-right text-slate-700">{c.totalOrders}</td>
                 <td className="px-5 py-3 text-right font-medium text-slate-900">₹{c.totalCashback.toLocaleString()}</td>
                 <td className="px-5 py-3 text-slate-600">{c.joined}</td>
@@ -93,7 +97,7 @@ function CustomersPage() {
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-base font-semibold text-slate-900">{selected.name}</h3>
-                <p className="text-xs text-slate-500">{selected.email} · Joined {selected.joined}</p>
+                <p className="text-xs text-slate-500">{selected.email} · {selected.phone} · Joined {selected.joined}</p>
               </div>
               <button onClick={() => setSelected(null)} className="rounded p-1 text-slate-400 hover:bg-slate-100"><X size={16} /></button>
             </div>

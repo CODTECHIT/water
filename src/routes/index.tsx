@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, MessageCircle, ShieldCheck, Droplets, Truck, BadgeCheck } from "lucide-react";
+import { ArrowUpRight, MessageCircle, ShieldCheck, Droplets, Truck, BadgeCheck, QrCode } from "lucide-react";
 import { SiteLayout } from "@/components/king/SiteLayout";
 import { CrownIcon } from "@/components/king/CrownIcon";
 import { Reveal } from "@/components/king/Reveal";
 import heroWater from "@/assets/hero-water.jpg";
 import aboutDroplet from "@/assets/about-droplet.jpg";
-import product15 from "@/assets/product-15.jpg";
-import product30 from "@/assets/product-30.jpg";
+
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -23,7 +22,7 @@ export const Route = createFileRoute("/")({
 });
 
 const WHATSAPP =
-  "https://wa.me/919999999999?text=Hi%20King%20Water%2C%20I%27d%20like%20to%20order.";
+  "https://wa.me/918341574346?text=Hi%20King%20Water%2C%20I%27d%20like%20to%20order.";
 
 const trustBadges = [
   { icon: Droplets, label: "Daily TDS Tested" },
@@ -119,7 +118,7 @@ function HomePage() {
         <Reveal>
           <div className="grid grid-cols-1 items-end gap-6 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <span className="eyebrow">Packs</span>
+              <span className="eyebrow">Our Selection</span>
               <h2 className="mt-4 font-display text-4xl leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
                 Two ways to
                 <br />
@@ -128,7 +127,7 @@ function HomePage() {
             </div>
             <p className="max-w-sm text-sm leading-relaxed text-muted-foreground lg:col-span-5">
               Pick a pack that suits your household or office. Both include
-              same-day dispatch and a cashback reward on every subscription.
+              same-day dispatch in service areas.
             </p>
           </div>
         </Reveal>
@@ -136,23 +135,20 @@ function HomePage() {
         <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
           <Reveal delay={80}>
             <ProductCard
-              image={product15}
-              eyebrow="Family Pack"
-              title="15 Cans"
-              price="₹450"
-              cashback="₹40 cashback"
-              note="Ideal for a household of 2–4."
+              image="/can.png"
+              eyebrow="Our Signature"
+              title="Water Cans"
+              cashback="Up to ₹100 Cashback"
+              note="Purified water cans, delivered fresh to your doorstep. Best for households and offices."
             />
           </Reveal>
           <Reveal delay={200}>
             <ProductCard
-              image={product30}
-              eyebrow="Office Pack"
-              title="30 Cans"
-              price="₹850"
-              cashback="₹90 cashback"
+              image="/bottles.png"
+              eyebrow="On The Go"
+              title="Water Bottles"
               featured
-              note="Best for offices and larger homes."
+              note="Purified bottled water for everyday hydration. Sourced responsibly and purified to the highest standard."
             />
           </Reveal>
         </div>
@@ -162,9 +158,46 @@ function HomePage() {
             to="/products"
             className="group inline-flex items-center gap-2 text-sm font-semibold text-ink underline decoration-gold decoration-2 underline-offset-8 transition-colors hover:text-plum"
           >
-            See all packs & pricing
+            See more details
             <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
+        </Reveal>
+      </section>
+
+      {/* CASHBACK HIGHLIGHT SECTION */}
+      <section className="mx-auto max-w-[1240px] px-6 pb-20 lg:px-10 lg:pb-28">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[12px] bg-gold/10 border border-gold/20 p-8 md:p-14 lg:p-20 text-center">
+            <CrownIcon size={32} className="mx-auto text-gold mb-6" />
+            <h2 className="font-display text-4xl leading-tight text-ink sm:text-5xl lg:text-6xl">
+              Scan. Order. Earn.
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Get rewarded for every drop you drink. Claim your cashback effortlessly on water can orders.
+            </p>
+
+            <div className="mt-12 flex flex-col items-center justify-center gap-8 md:flex-row md:gap-16">
+              <div className="flex flex-col items-center">
+                <span className="text-xl font-medium text-ink">15 Cans</span>
+                <span className="mt-2 font-display text-4xl text-gold">₹50 Cashback</span>
+              </div>
+              <div className="hidden h-16 w-px bg-gold/30 md:block"></div>
+              <div className="flex flex-col items-center">
+                <span className="text-xl font-medium text-ink">30 Cans</span>
+                <span className="mt-2 font-display text-4xl text-gold">₹100 Cashback</span>
+              </div>
+            </div>
+
+            <div className="mt-14 inline-flex items-center gap-4 rounded-full bg-white px-6 py-4 shadow-sm border border-gold/20">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
+                <QrCode size={24} />
+              </div>
+              <p className="text-left font-medium text-ink">
+                Scan the QR code on your can <br className="hidden sm:block" />
+                to avail this cashback.
+              </p>
+            </div>
+          </div>
         </Reveal>
       </section>
 
@@ -193,7 +226,7 @@ function HomePage() {
             <h2 className="mt-4 font-display text-4xl leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
               A family standard,
               <br />
-              <em className="italic text-plum">poured into every can.</em>
+              <em className="italic text-plum">poured into every can and bottle.</em>
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
               King Water started with one rule — the same purity we expect for
@@ -234,12 +267,12 @@ function HomePage() {
           <div className="lg:col-span-7">
             <span className="eyebrow">Go Digital</span>
             <h2 className="mt-4 font-display text-4xl leading-[1.05] text-ink sm:text-5xl">
-              Every can carries a code
+              Every can or bottle carries a code
               <br />
               <em className="italic text-plum">that talks back.</em>
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-              Scan the QR on your can to trace its source, view the day's TDS
+              Scan the QR on your can or bottle to trace its source, view the day's TDS
               report, and instantly claim your cashback. No apps, no accounts —
               just a receipt of trust.
             </p>
@@ -268,7 +301,6 @@ function ProductCard({
   image,
   eyebrow,
   title,
-  price,
   cashback,
   note,
   featured,
@@ -276,16 +308,14 @@ function ProductCard({
   image: string;
   eyebrow: string;
   title: string;
-  price: string;
-  cashback: string;
+  cashback?: string;
   note: string;
   featured?: boolean;
 }) {
   return (
     <article
-      className={`group relative flex flex-col overflow-hidden rounded-[6px] border border-hairline bg-white transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(51,51,51,0.18)] ${
-        featured ? "md:translate-y-8" : ""
-      }`}
+      className={`group relative flex flex-col overflow-hidden rounded-[6px] border border-hairline bg-white transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(51,51,51,0.18)] ${featured ? "md:translate-y-8" : ""
+        }`}
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
         <img
@@ -300,14 +330,13 @@ function ProductCard({
       <div className="flex flex-col gap-5 p-6 lg:p-8">
         <div className="flex items-center justify-between">
           <span className="eyebrow">{eyebrow}</span>
-          <span className="inline-flex items-center gap-1.5 rounded-[3px] bg-gold/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
-            <CrownIcon size={11} /> {cashback}
-          </span>
+          {cashback && (
+            <span className="inline-flex items-center gap-1.5 rounded-[3px] bg-gold/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
+              <CrownIcon size={11} /> {cashback}
+            </span>
+          )}
         </div>
-        <div className="flex items-baseline justify-between gap-4">
-          <h3 className="font-display text-4xl leading-none text-ink lg:text-5xl">{title}</h3>
-          <p className="font-display text-4xl leading-none text-plum lg:text-5xl">{price}</p>
-        </div>
+        <h3 className="font-display text-4xl leading-none text-ink lg:text-5xl">{title}</h3>
         <p className="text-sm text-muted-foreground">{note}</p>
         <a
           href={WHATSAPP}
@@ -315,7 +344,7 @@ function ProductCard({
           rel="noreferrer"
           className="mt-2 inline-flex items-center gap-2 self-start text-sm font-semibold text-ink underline decoration-plum decoration-2 underline-offset-8 transition-colors hover:text-plum"
         >
-          Order this pack <ArrowUpRight size={14} />
+          Order via WhatsApp <ArrowUpRight size={14} />
         </a>
       </div>
     </article>

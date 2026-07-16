@@ -25,7 +25,7 @@ export const Route = createFileRoute("/contact")({
   }),
 });
 
-const WHATSAPP_NUMBER = "919999999999";
+const WHATSAPP_NUMBER = "918341574346";
 
 const packs = ["15 Cans (Family Pack)", "30 Cans (Office Pack)", "Custom / Bulk"];
 
@@ -107,7 +107,7 @@ function ContactPage() {
                   rel="noreferrer"
                   className="mt-2 block font-display text-2xl text-ink hover:text-plum"
                 >
-                  +91 99999 99999
+                  +91 8341574346
                 </a>
               </li>
               <li>
@@ -115,10 +115,10 @@ function ContactPage() {
                   Email
                 </p>
                 <a
-                  href="mailto:hello@kingwater.in"
+                  href="mailto:joel.402g@gmail.com"
                   className="mt-2 block font-display text-2xl text-ink hover:text-plum"
                 >
-                  hello@kingwater.in
+                  joel.402g@gmail.com
                 </a>
               </li>
               <li>

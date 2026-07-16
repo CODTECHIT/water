@@ -3,7 +3,7 @@ import { CrownIcon } from "./CrownIcon";
 import { MessageCircle } from "lucide-react";
 
 const WHATSAPP =
-  "https://wa.me/919999999999?text=Hi%20King%20Water%2C%20I%27d%20like%20to%20order.";
+  "https://wa.me/918341574346?text=Hi%20King%20Water%2C%20I%27d%20like%20to%20order.";
 
 export function Footer() {
   return (
@@ -58,8 +58,8 @@ export function Footer() {
               Contact
             </h4>
             <ul className="mt-5 space-y-3 text-sm text-cream/80">
-              <li>WhatsApp: +91 99999 99999</li>
-              <li>hello@kingwater.in</li>
+              <li>WhatsApp: +91 8341574346</li>
+              <li>joel.402g@gmail.com</li>
               <li>FSSAI Registered</li>
             </ul>
           </div>

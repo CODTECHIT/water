@@ -10,8 +10,8 @@ export const Route = createFileRoute("/admin/products")({
 
 function ProductsPage() {
   const [rows, setRows] = useState([
-    { key: "15", label: "15 Cans Pack", price: 750, cashback: 40 },
-    { key: "30", label: "30 Cans Pack", price: 1400, cashback: 90 },
+    { key: "15", label: "15 Cans Pack", price: 750, cashback: 50 },
+    { key: "30", label: "30 Cans Pack", price: 1400, cashback: 100 },
   ]);
 
   const update = (key: string, field: "price" | "cashback", value: number) =>

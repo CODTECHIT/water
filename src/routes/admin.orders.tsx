@@ -19,14 +19,14 @@ type Order = {
 };
 
 const seed: Order[] = [
-  { id: "ORD-2841", customer: "Ritika Sharma", email: "ritika@example.com", pack: "30 cans", date: "2026-07-15", status: "Pending", cashback: 90 },
-  { id: "ORD-2840", customer: "Anushka Rao", email: "anushka@example.com", pack: "15 cans", date: "2026-07-15", status: "Delivered", cashback: 40 },
-  { id: "ORD-2839", customer: "Farah Khan", email: "farah@example.com", pack: "30 cans", date: "2026-07-14", status: "Delivered", cashback: 90 },
-  { id: "ORD-2838", customer: "Mihir Patel", email: "mihir@example.com", pack: "15 cans", date: "2026-07-14", status: "Delivered", cashback: 40 },
-  { id: "ORD-2837", customer: "Karthik Nair", email: "karthik@example.com", pack: "30 cans", date: "2026-07-13", status: "Delivered", cashback: 90 },
-  { id: "ORD-2836", customer: "Neha Bansal", email: "neha@example.com", pack: "15 cans", date: "2026-07-13", status: "Pending", cashback: 40 },
-  { id: "ORD-2835", customer: "Zoya Ahmed", email: "zoya@example.com", pack: "30 cans", date: "2026-07-12", status: "Delivered", cashback: 90 },
-  { id: "ORD-2834", customer: "Devansh Gupta", email: "devansh@example.com", pack: "15 cans", date: "2026-07-12", status: "Delivered", cashback: 40 },
+  { id: "ORD-2841", customer: "Ritika Sharma", email: "ritika@example.com", pack: "30 cans", date: "2026-07-15", status: "Pending", cashback: 100 },
+  { id: "ORD-2840", customer: "Anushka Rao", email: "anushka@example.com", pack: "15 cans", date: "2026-07-15", status: "Delivered", cashback: 50 },
+  { id: "ORD-2839", customer: "Farah Khan", email: "farah@example.com", pack: "30 cans", date: "2026-07-14", status: "Delivered", cashback: 100 },
+  { id: "ORD-2838", customer: "Mihir Patel", email: "mihir@example.com", pack: "15 cans", date: "2026-07-14", status: "Delivered", cashback: 50 },
+  { id: "ORD-2837", customer: "Karthik Nair", email: "karthik@example.com", pack: "30 cans", date: "2026-07-13", status: "Delivered", cashback: 100 },
+  { id: "ORD-2836", customer: "Neha Bansal", email: "neha@example.com", pack: "15 cans", date: "2026-07-13", status: "Pending", cashback: 50 },
+  { id: "ORD-2835", customer: "Zoya Ahmed", email: "zoya@example.com", pack: "30 cans", date: "2026-07-12", status: "Delivered", cashback: 100 },
+  { id: "ORD-2834", customer: "Devansh Gupta", email: "devansh@example.com", pack: "15 cans", date: "2026-07-12", status: "Delivered", cashback: 50 },
 ];
 
 function OrdersPage() {
@@ -129,7 +129,7 @@ function OrdersPage() {
                 <input type="date" className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]" />
               </div>
               <div className="rounded-md bg-slate-50 px-3 py-2 text-xs text-slate-600">
-                Cashback for this order: <span className="font-semibold text-[#8E2A6B]">₹{pack === "15 cans" ? 40 : 90}</span>
+                Cashback for this order: <span className="font-semibold text-[#8E2A6B]">₹{pack === "15 cans" ? 50 : 100}</span>
               </div>
               <div className="flex justify-end gap-2 pt-2">
                 <button type="button" onClick={() => setOpen(false)} className="rounded-md border border-slate-300 px-3.5 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Cancel</button>
