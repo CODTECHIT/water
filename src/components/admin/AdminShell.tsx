@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/tds", label: "TDS Reports", icon: FlaskConical },
+  { to: "/admin/tds", label: "Water Quality Report", icon: FlaskConical },
   { to: "/admin/orders", label: "Orders", icon: ShoppingCart },
   { to: "/admin/customers", label: "Customers", icon: Users },
   { to: "/admin/cashback", label: "Cashback Claims", icon: Wallet },

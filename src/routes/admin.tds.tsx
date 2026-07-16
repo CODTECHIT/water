@@ -1,107 +1,223 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { AdminShell } from "@/components/admin/AdminShell";
-import { Upload, FileText, Trash2, Eye, X } from "lucide-react";
+import { Save, BadgeCheck, Beaker, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/tds")({
-  component: TdsPage,
-  head: () => ({ meta: [{ title: "TDS Reports — King Water Admin" }, { name: "robots", content: "noindex" }] }),
+  component: WaterQualityEditor,
+  head: () => ({ meta: [{ title: "Water Quality Report Editor — King Water Admin" }, { name: "robots", content: "noindex" }] }),
 });
 
-const reports = [
-  { id: 1, date: "Jul 14, 2026", file: "TDS-2026-07-14.pdf", by: "Priya Menon", notes: "Batch A — 42 ppm" },
-  { id: 2, date: "Jul 13, 2026", file: "TDS-2026-07-13.pdf", by: "Priya Menon", notes: "Batch A — 41 ppm" },
-  { id: 3, date: "Jul 12, 2026", file: "TDS-2026-07-12.pdf", by: "Rahul Verma", notes: "Batch B — 43 ppm" },
-  { id: 4, date: "Jul 11, 2026", file: "TDS-2026-07-11.pdf", by: "Rahul Verma", notes: "Batch B — 40 ppm" },
-  { id: 5, date: "Jul 10, 2026", file: "TDS-2026-07-10.pdf", by: "Priya Menon", notes: "Batch A — 42 ppm" },
-];
+function WaterQualityEditor() {
+  const [reportDate, setReportDate] = useState("2026-07-16");
+  const [labName, setLabName] = useState("Bureau Veritas India Testing Services");
+  const [sampleName, setSampleName] = useState("Packaged Drinking Water");
+  const [ironFe, setIronFe] = useState("0.02");
+  const [calciumCa, setCalciumCa] = useState("12.5");
+  const [chlorideCl, setChlorideCl] = useState("18.2");
+  const [fluorideF, setFluorideF] = useState("0.40");
+  const [magnesiumMg, setMagnesiumMg] = useState("4.8");
+  const [nitrateNo3, setNitrateNo3] = useState("1.2");
+  const [pH, setPH] = useState("7.2");
+  const [sulphateSo4, setSulphateSo4] = useState("8.5");
+  const [tds, setTds] = useState("42");
 
-function TdsPage() {
-  const [open, setOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    setTimeout(() => setSaving(false), 800);
+  };
+
+  const previewData = [
+    { param: "TDS (Total Dissolved Solids)", result: tds, unit: "mg/L", standard: "Max 500 mg/L" },
+    { param: "pH Value", result: pH, unit: "", standard: "6.5 - 8.5" },
+    { param: "Iron (as Fe)", result: ironFe, unit: "mg/L", standard: "Max 0.3 mg/L" },
+    { param: "Calcium (as Ca)", result: calciumCa, unit: "mg/L", standard: "Max 75 mg/L" },
+    { param: "Magnesium (as Mg)", result: magnesiumMg, unit: "mg/L", standard: "Max 30 mg/L" },
+    { param: "Chloride (as Cl)", result: chlorideCl, unit: "mg/L", standard: "Max 250 mg/L" },
+    { param: "Fluoride (as F)", result: fluorideF, unit: "mg/L", standard: "Max 1.0 mg/L" },
+    { param: "Nitrate (as NO3)", result: nitrateNo3, unit: "mg/L", standard: "Max 45 mg/L" },
+    { param: "Sulphate (as SO4)", result: sulphateSo4, unit: "mg/L", standard: "Max 200 mg/L" },
+  ];
+
+  const reportDateFormatted = new Date(reportDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+
   return (
     <AdminShell
-      title="TDS Reports"
-      description="Daily total dissolved solids test uploads."
+      title="Water Quality Report"
+      description="Update the live lab report shown to customers on the public QR page."
       actions={
-        <button
-          onClick={() => setOpen(true)}
-          className="inline-flex items-center gap-2 rounded-md bg-[#8E2A6B] px-3.5 py-2 text-sm font-medium text-white hover:bg-[#75225a]"
-        >
-          <Upload size={14} /> Upload New Report
-        </button>
+        <div className="flex items-center gap-4">
+          <span className="text-xs text-slate-500">Last updated: Today, 08:30 AM</span>
+          <button
+            onClick={handleSave}
+            className="inline-flex items-center gap-2 rounded-md bg-[#8E2A6B] px-4 py-2 text-sm font-medium text-white hover:bg-[#75225a] transition-all"
+          >
+            <Save size={16} /> {saving ? "Publishing..." : "Save & Publish"}
+          </button>
+        </div>
       }
     >
-      <div className="rounded-lg border border-slate-200 bg-white">
-        <table className="w-full text-sm">
-          <thead className="bg-slate-50 text-left text-xs uppercase tracking-wider text-slate-500">
-            <tr>
-              <th className="px-5 py-3">Date</th>
-              <th className="px-5 py-3">File</th>
-              <th className="px-5 py-3">Notes</th>
-              <th className="px-5 py-3">Uploaded By</th>
-              <th className="px-5 py-3 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {reports.map((r) => (
-              <tr key={r.id} className="hover:bg-slate-50">
-                <td className="px-5 py-3 font-medium text-slate-900">{r.date}</td>
-                <td className="px-5 py-3">
-                  <div className="flex items-center gap-2 text-slate-700">
-                    <FileText size={14} className="text-[#8E2A6B]" />
-                    <span className="text-xs">{r.file}</span>
-                  </div>
-                </td>
-                <td className="px-5 py-3 text-slate-600">{r.notes}</td>
-                <td className="px-5 py-3 text-slate-600">{r.by}</td>
-                <td className="px-5 py-3">
-                  <div className="flex justify-end gap-2">
-                    <button className="rounded p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900"><Eye size={14} /></button>
-                    <button className="rounded p-1.5 text-slate-500 hover:bg-rose-50 hover:text-rose-600"><Trash2 size={14} /></button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4" onClick={() => setOpen(false)}>
-          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-start justify-between">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+        
+        {/* Editor Form */}
+        <div className="xl:col-span-5 space-y-6">
+          <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-base font-semibold text-slate-900 mb-5">Report Details</h3>
+            <div className="space-y-4">
               <div>
-                <h3 className="text-base font-semibold text-slate-900">Upload TDS Report</h3>
-                <p className="text-xs text-slate-500">Add a new daily test result.</p>
+                <label className="text-xs font-medium text-slate-700">Report Date</label>
+                <input type="date" value={reportDate} onChange={e => setReportDate(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
               </div>
-              <button onClick={() => setOpen(false)} className="rounded p-1 text-slate-400 hover:bg-slate-100"><X size={16} /></button>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Lab Name</label>
+                <input type="text" value={labName} onChange={e => setLabName(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Sample Name</label>
+                <input type="text" value={sampleName} onChange={e => setSampleName(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
             </div>
-            <form className="mt-5 space-y-4" onSubmit={(e) => { e.preventDefault(); setOpen(false); }}>
+
+            <div className="mt-8 mb-4 border-b border-slate-100 pb-2 flex items-center justify-between">
+              <h3 className="text-base font-semibold text-slate-900">Key Metric</h3>
+            </div>
+            
+            <div className="rounded-md border-2 border-[#B8863B]/30 bg-[#B8863B]/5 p-4 relative">
+              <div className="absolute top-0 right-0 bg-[#B8863B] text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-bl-md rounded-tr-sm">Updates frequently</div>
+              <label className="text-xs font-bold text-[#8E2A6B] uppercase tracking-wider">TDS (Total Dissolved Solids)</label>
+              <div className="mt-2 flex items-center gap-2">
+                <input type="number" step="1" value={tds} onChange={e => setTds(e.target.value)} className="w-full rounded-md border-2 border-[#B8863B] px-4 py-3 text-2xl font-bold text-slate-900 outline-none focus:ring-4 focus:ring-[#B8863B]/20" />
+                <span className="text-slate-500 font-medium">mg/L</span>
+              </div>
+            </div>
+
+            <div className="mt-8 mb-4 border-b border-slate-100 pb-2">
+              <h3 className="text-base font-semibold text-slate-900">Chemical Analysis</h3>
+            </div>
+
+            <div className="grid grid-cols-2 gap-x-4 gap-y-4">
               <div>
-                <label className="text-xs font-medium text-slate-700">Report date</label>
-                <input type="date" className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]" />
+                <label className="text-xs font-medium text-slate-700">pH Value</label>
+                <input type="number" step="0.1" value={pH} onChange={e => setPH(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
               </div>
               <div>
-                <label className="text-xs font-medium text-slate-700">Report file (PDF)</label>
-                <div className="mt-1 flex items-center justify-center rounded-md border-2 border-dashed border-slate-300 px-4 py-6 text-center text-xs text-slate-500">
-                  <div>
-                    <Upload size={18} className="mx-auto mb-1 text-slate-400" />
-                    Click to browse or drop a PDF
+                <label className="text-xs font-medium text-slate-700">Iron (Fe)</label>
+                <input type="number" step="0.01" value={ironFe} onChange={e => setIronFe(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Calcium (Ca)</label>
+                <input type="number" step="0.1" value={calciumCa} onChange={e => setCalciumCa(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Chloride (Cl)</label>
+                <input type="number" step="0.1" value={chlorideCl} onChange={e => setChlorideCl(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Fluoride (F)</label>
+                <input type="number" step="0.01" value={fluorideF} onChange={e => setFluorideF(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Magnesium (Mg)</label>
+                <input type="number" step="0.1" value={magnesiumMg} onChange={e => setMagnesiumMg(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Nitrate (NO3)</label>
+                <input type="number" step="0.1" value={nitrateNo3} onChange={e => setNitrateNo3(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-700">Sulphate (SO4)</label>
+                <input type="number" step="0.1" value={sulphateSo4} onChange={e => setSulphateSo4(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B]" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Live Preview Panel */}
+        <div className="xl:col-span-7">
+          <div className="sticky top-24">
+            <div className="mb-2 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Live Public Preview</h3>
+            </div>
+            <div className="rounded-[12px] bg-white shadow-xl border border-slate-200 overflow-hidden scale-[0.85] origin-top lg:scale-100">
+              {/* Report Header (From public site) */}
+              <div className="border-b border-slate-200 p-6 md:p-8 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-slate-50/50">
+                <div>
+                  <h2 className="font-display text-2xl text-slate-900">Official Lab Report</h2>
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                    <div>
+                      <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Sample Name</div>
+                      <div className="font-medium text-slate-900 text-sm">{sampleName || "—"}</div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Report Date</div>
+                      <div className="font-medium text-slate-900 text-sm">{reportDateFormatted || "—"}</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="inline-flex items-center gap-3 rounded-full bg-emerald-50 border border-emerald-100 px-4 py-2 self-start md:self-auto shrink-0">
+                  <BadgeCheck className="text-emerald-600" size={20} />
+                  <div className="text-left">
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-emerald-800">Tested & Certified by</div>
+                    <div className="font-semibold text-emerald-900 text-xs leading-none mt-0.5">{labName || "—"}</div>
                   </div>
                 </div>
               </div>
-              <div>
-                <label className="text-xs font-medium text-slate-700">Notes</label>
-                <textarea rows={3} placeholder="e.g. Batch A — 42 ppm" className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#8E2A6B] focus:ring-1 focus:ring-[#8E2A6B]" />
+
+              {/* TDS Highlight */}
+              <div className="p-6 md:p-8 border-b border-slate-200 bg-gradient-to-br from-[#B8863B]/10 to-transparent">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 text-[#B8863B] mb-2">
+                      <Beaker size={16} />
+                      <span className="font-semibold tracking-wide uppercase text-xs">Key Purity Metric</span>
+                    </div>
+                    <h3 className="font-display text-xl text-slate-900">Total Dissolved Solids (TDS)</h3>
+                  </div>
+                  <div className="text-center md:text-right shrink-0">
+                    <div className="font-display text-[64px] leading-none text-[#B8863B]">{tds || "0"}<span className="text-2xl text-[#B8863B]/60 ml-1 font-sans tracking-normal">mg/L</span></div>
+                    <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold text-emerald-600 border border-emerald-100 shadow-sm">
+                      <CheckCircle2 size={10} /> Excellent Quality
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-end gap-2 pt-2">
-                <button type="button" onClick={() => setOpen(false)} className="rounded-md border border-slate-300 px-3.5 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Cancel</button>
-                <button type="submit" className="rounded-md bg-[#8E2A6B] px-3.5 py-2 text-sm font-medium text-white hover:bg-[#75225a]">Upload report</button>
+
+              {/* Data Table */}
+              <div className="p-6 md:p-8">
+                <h3 className="font-display text-lg text-slate-900 mb-4">Detailed Chemical Analysis</h3>
+                <table className="w-full text-left text-sm">
+                  <thead className="border-b-2 border-slate-100 text-[10px] uppercase tracking-wider text-slate-500">
+                    <tr>
+                      <th className="pb-3 font-semibold pl-2">Parameter</th>
+                      <th className="pb-3 font-semibold text-right">Result</th>
+                      <th className="pb-3 font-semibold text-right pr-2 hidden sm:table-cell">Requirement</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {previewData.map((row, i) => (
+                      <tr key={i}>
+                        <td className="py-2.5 font-medium text-slate-900 pl-2">{row.param}</td>
+                        <td className="py-2.5 text-right">
+                          <span className={row.param.includes("TDS") ? "font-bold text-[#B8863B] text-base" : "font-semibold text-slate-900"}>
+                            {row.result || "0"}
+                          </span>
+                          {row.unit && <span className="text-slate-500 ml-1 text-xs">{row.unit}</span>}
+                        </td>
+                        <td className="py-2.5 text-right text-slate-500 pr-2 hidden sm:table-cell text-xs">{row.standard}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            </form>
+            </div>
           </div>
         </div>
-      )}
+
+      </div>
     </AdminShell>
   );
 }

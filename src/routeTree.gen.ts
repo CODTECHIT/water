@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ReportRouteImport } from './routes/report'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -26,6 +27,11 @@ import { Route as AdminCashbackRouteImport } from './routes/admin.cashback'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsRoute = ProductsRouteImport.update({
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
   '/products': typeof ProductsRoute
+  '/report': typeof ReportRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/cashback': typeof AdminCashbackRoute
   '/admin/customers': typeof AdminCustomersRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
   '/products': typeof ProductsRoute
+  '/report': typeof ReportRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/cashback': typeof AdminCashbackRoute
   '/admin/customers': typeof AdminCustomersRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
   '/products': typeof ProductsRoute
+  '/report': typeof ReportRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/cashback': typeof AdminCashbackRoute
   '/admin/customers': typeof AdminCustomersRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/login'
     | '/products'
+    | '/report'
     | '/sitemap.xml'
     | '/admin/cashback'
     | '/admin/customers'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/login'
     | '/products'
+    | '/report'
     | '/sitemap.xml'
     | '/admin/cashback'
     | '/admin/customers'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/login'
     | '/products'
+    | '/report'
     | '/sitemap.xml'
     | '/admin/cashback'
     | '/admin/customers'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   LoginRoute: typeof LoginRoute
   ProductsRoute: typeof ProductsRoute
+  ReportRoute: typeof ReportRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminCashbackRoute: typeof AdminCashbackRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
@@ -206,6 +219,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products': {
@@ -301,6 +321,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   LoginRoute: LoginRoute,
   ProductsRoute: ProductsRoute,
+  ReportRoute: ReportRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminCashbackRoute: AdminCashbackRoute,
   AdminCustomersRoute: AdminCustomersRoute,
