@@ -18,8 +18,7 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact — King Water" },
       {
         property: "og:description",
-        content:
-          "Send us your details — we'll pick up the conversation on WhatsApp.",
+        content: "Send us your details — we'll pick up the conversation on WhatsApp.",
       },
     ],
   }),
@@ -78,8 +77,8 @@ function ContactPage() {
             </h1>
           </div>
           <p className="max-w-md text-base leading-relaxed text-muted-foreground lg:col-span-5 lg:self-end">
-            Fill in a few details and we'll continue the conversation on
-            WhatsApp — usually within the hour, during service times.
+            Fill in a few details and we'll continue the conversation on WhatsApp — usually within
+            the hour, during service times.
           </p>
         </div>
       </section>
@@ -92,8 +91,8 @@ function ContactPage() {
               Prefer to skip the form?
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              We're on WhatsApp for orders, schedules and bulk queries. Email
-              works too — we reply the same working day.
+              We're on WhatsApp for orders, schedules and bulk queries. Email works too — we reply
+              the same working day.
             </p>
 
             <ul className="mt-10 space-y-6 border-t border-hairline pt-8">
@@ -125,9 +124,7 @@ function ContactPage() {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
                   Service Hours
                 </p>
-                <p className="mt-2 font-display text-2xl text-ink">
-                  Mon – Sat · 8am – 8pm
-                </p>
+                <p className="mt-2 font-display text-2xl text-ink">Mon – Sat · 8am – 8pm</p>
               </li>
             </ul>
           </Reveal>

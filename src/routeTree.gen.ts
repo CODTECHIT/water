@@ -16,14 +16,16 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as AdminTdsRouteImport } from './routes/admin.tds'
-import { Route as AdminQrRouteImport } from './routes/admin.qr'
-import { Route as AdminProductsRouteImport } from './routes/admin.products'
-import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
-import { Route as AdminLoginRouteImport } from './routes/admin.login'
-import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
-import { Route as AdminCashbackRouteImport } from './routes/admin.cashback'
+import { Route as AdminKingRouteRouteImport } from './routes/admin.king.route'
+import { Route as AdminKingIndexRouteImport } from './routes/admin.king.index'
+import { Route as AdminKingTdsRouteImport } from './routes/admin.king.tds'
+import { Route as AdminKingQrScansRouteImport } from './routes/admin.king.qr-scans'
+import { Route as AdminKingQrRouteImport } from './routes/admin.king.qr'
+import { Route as AdminKingProductsRouteImport } from './routes/admin.king.products'
+import { Route as AdminKingOrdersRouteImport } from './routes/admin.king.orders'
+import { Route as AdminKingLoginRouteImport } from './routes/admin.king.login'
+import { Route as AdminKingCustomersRouteImport } from './routes/admin.king.customers'
+import { Route as AdminKingCashbackRouteImport } from './routes/admin.king.cashback'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -60,45 +62,55 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
+const AdminKingRouteRoute = AdminKingRouteRouteImport.update({
+  id: '/admin/king',
+  path: '/admin/king',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminTdsRoute = AdminTdsRouteImport.update({
-  id: '/admin/tds',
-  path: '/admin/tds',
-  getParentRoute: () => rootRouteImport,
+const AdminKingIndexRoute = AdminKingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminKingRouteRoute,
 } as any)
-const AdminQrRoute = AdminQrRouteImport.update({
-  id: '/admin/qr',
-  path: '/admin/qr',
-  getParentRoute: () => rootRouteImport,
+const AdminKingTdsRoute = AdminKingTdsRouteImport.update({
+  id: '/tds',
+  path: '/tds',
+  getParentRoute: () => AdminKingRouteRoute,
 } as any)
-const AdminProductsRoute = AdminProductsRouteImport.update({
-  id: '/admin/products',
-  path: '/admin/products',
-  getParentRoute: () => rootRouteImport,
+const AdminKingQrScansRoute = AdminKingQrScansRouteImport.update({
+  id: '/qr-scans',
+  path: '/qr-scans',
+  getParentRoute: () => AdminKingRouteRoute,
 } as any)
-const AdminOrdersRoute = AdminOrdersRouteImport.update({
-  id: '/admin/orders',
-  path: '/admin/orders',
-  getParentRoute: () => rootRouteImport,
+const AdminKingQrRoute = AdminKingQrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => AdminKingRouteRoute,
 } as any)
-const AdminLoginRoute = AdminLoginRouteImport.update({
-  id: '/admin/login',
-  path: '/admin/login',
-  getParentRoute: () => rootRouteImport,
+const AdminKingProductsRoute = AdminKingProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminKingRouteRoute,
 } as any)
-const AdminCustomersRoute = AdminCustomersRouteImport.update({
-  id: '/admin/customers',
-  path: '/admin/customers',
-  getParentRoute: () => rootRouteImport,
+const AdminKingOrdersRoute = AdminKingOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => AdminKingRouteRoute,
 } as any)
-const AdminCashbackRoute = AdminCashbackRouteImport.update({
-  id: '/admin/cashback',
-  path: '/admin/cashback',
-  getParentRoute: () => rootRouteImport,
+const AdminKingLoginRoute = AdminKingLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminKingRouteRoute,
+} as any)
+const AdminKingCustomersRoute = AdminKingCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => AdminKingRouteRoute,
+} as any)
+const AdminKingCashbackRoute = AdminKingCashbackRouteImport.update({
+  id: '/cashback',
+  path: '/cashback',
+  getParentRoute: () => AdminKingRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -109,14 +121,16 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRoute
   '/report': typeof ReportRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/admin/cashback': typeof AdminCashbackRoute
-  '/admin/customers': typeof AdminCustomersRoute
-  '/admin/login': typeof AdminLoginRoute
-  '/admin/orders': typeof AdminOrdersRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/qr': typeof AdminQrRoute
-  '/admin/tds': typeof AdminTdsRoute
-  '/admin/': typeof AdminIndexRoute
+  '/admin/king': typeof AdminKingRouteRouteWithChildren
+  '/admin/king/cashback': typeof AdminKingCashbackRoute
+  '/admin/king/customers': typeof AdminKingCustomersRoute
+  '/admin/king/login': typeof AdminKingLoginRoute
+  '/admin/king/orders': typeof AdminKingOrdersRoute
+  '/admin/king/products': typeof AdminKingProductsRoute
+  '/admin/king/qr': typeof AdminKingQrRoute
+  '/admin/king/qr-scans': typeof AdminKingQrScansRoute
+  '/admin/king/tds': typeof AdminKingTdsRoute
+  '/admin/king/': typeof AdminKingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -126,14 +140,15 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRoute
   '/report': typeof ReportRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/admin/cashback': typeof AdminCashbackRoute
-  '/admin/customers': typeof AdminCustomersRoute
-  '/admin/login': typeof AdminLoginRoute
-  '/admin/orders': typeof AdminOrdersRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/qr': typeof AdminQrRoute
-  '/admin/tds': typeof AdminTdsRoute
-  '/admin': typeof AdminIndexRoute
+  '/admin/king/cashback': typeof AdminKingCashbackRoute
+  '/admin/king/customers': typeof AdminKingCustomersRoute
+  '/admin/king/login': typeof AdminKingLoginRoute
+  '/admin/king/orders': typeof AdminKingOrdersRoute
+  '/admin/king/products': typeof AdminKingProductsRoute
+  '/admin/king/qr': typeof AdminKingQrRoute
+  '/admin/king/qr-scans': typeof AdminKingQrScansRoute
+  '/admin/king/tds': typeof AdminKingTdsRoute
+  '/admin/king': typeof AdminKingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -144,14 +159,16 @@ export interface FileRoutesById {
   '/products': typeof ProductsRoute
   '/report': typeof ReportRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/admin/cashback': typeof AdminCashbackRoute
-  '/admin/customers': typeof AdminCustomersRoute
-  '/admin/login': typeof AdminLoginRoute
-  '/admin/orders': typeof AdminOrdersRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/qr': typeof AdminQrRoute
-  '/admin/tds': typeof AdminTdsRoute
-  '/admin/': typeof AdminIndexRoute
+  '/admin/king': typeof AdminKingRouteRouteWithChildren
+  '/admin/king/cashback': typeof AdminKingCashbackRoute
+  '/admin/king/customers': typeof AdminKingCustomersRoute
+  '/admin/king/login': typeof AdminKingLoginRoute
+  '/admin/king/orders': typeof AdminKingOrdersRoute
+  '/admin/king/products': typeof AdminKingProductsRoute
+  '/admin/king/qr': typeof AdminKingQrRoute
+  '/admin/king/qr-scans': typeof AdminKingQrScansRoute
+  '/admin/king/tds': typeof AdminKingTdsRoute
+  '/admin/king/': typeof AdminKingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -163,14 +180,16 @@ export interface FileRouteTypes {
     | '/products'
     | '/report'
     | '/sitemap.xml'
-    | '/admin/cashback'
-    | '/admin/customers'
-    | '/admin/login'
-    | '/admin/orders'
-    | '/admin/products'
-    | '/admin/qr'
-    | '/admin/tds'
-    | '/admin/'
+    | '/admin/king'
+    | '/admin/king/cashback'
+    | '/admin/king/customers'
+    | '/admin/king/login'
+    | '/admin/king/orders'
+    | '/admin/king/products'
+    | '/admin/king/qr'
+    | '/admin/king/qr-scans'
+    | '/admin/king/tds'
+    | '/admin/king/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -180,14 +199,15 @@ export interface FileRouteTypes {
     | '/products'
     | '/report'
     | '/sitemap.xml'
-    | '/admin/cashback'
-    | '/admin/customers'
-    | '/admin/login'
-    | '/admin/orders'
-    | '/admin/products'
-    | '/admin/qr'
-    | '/admin/tds'
-    | '/admin'
+    | '/admin/king/cashback'
+    | '/admin/king/customers'
+    | '/admin/king/login'
+    | '/admin/king/orders'
+    | '/admin/king/products'
+    | '/admin/king/qr'
+    | '/admin/king/qr-scans'
+    | '/admin/king/tds'
+    | '/admin/king'
   id:
     | '__root__'
     | '/'
@@ -197,14 +217,16 @@ export interface FileRouteTypes {
     | '/products'
     | '/report'
     | '/sitemap.xml'
-    | '/admin/cashback'
-    | '/admin/customers'
-    | '/admin/login'
-    | '/admin/orders'
-    | '/admin/products'
-    | '/admin/qr'
-    | '/admin/tds'
-    | '/admin/'
+    | '/admin/king'
+    | '/admin/king/cashback'
+    | '/admin/king/customers'
+    | '/admin/king/login'
+    | '/admin/king/orders'
+    | '/admin/king/products'
+    | '/admin/king/qr'
+    | '/admin/king/qr-scans'
+    | '/admin/king/tds'
+    | '/admin/king/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -215,14 +237,7 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRoute
   ReportRoute: typeof ReportRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  AdminCashbackRoute: typeof AdminCashbackRoute
-  AdminCustomersRoute: typeof AdminCustomersRoute
-  AdminLoginRoute: typeof AdminLoginRoute
-  AdminOrdersRoute: typeof AdminOrdersRoute
-  AdminProductsRoute: typeof AdminProductsRoute
-  AdminQrRoute: typeof AdminQrRoute
-  AdminTdsRoute: typeof AdminTdsRoute
-  AdminIndexRoute: typeof AdminIndexRoute
+  AdminKingRouteRoute: typeof AdminKingRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -276,64 +291,106 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
+    '/admin/king': {
+      id: '/admin/king'
+      path: '/admin/king'
+      fullPath: '/admin/king'
+      preLoaderRoute: typeof AdminKingRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/tds': {
-      id: '/admin/tds'
-      path: '/admin/tds'
-      fullPath: '/admin/tds'
-      preLoaderRoute: typeof AdminTdsRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/king/': {
+      id: '/admin/king/'
+      path: '/'
+      fullPath: '/admin/king/'
+      preLoaderRoute: typeof AdminKingIndexRouteImport
+      parentRoute: typeof AdminKingRouteRoute
     }
-    '/admin/qr': {
-      id: '/admin/qr'
-      path: '/admin/qr'
-      fullPath: '/admin/qr'
-      preLoaderRoute: typeof AdminQrRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/king/tds': {
+      id: '/admin/king/tds'
+      path: '/tds'
+      fullPath: '/admin/king/tds'
+      preLoaderRoute: typeof AdminKingTdsRouteImport
+      parentRoute: typeof AdminKingRouteRoute
     }
-    '/admin/products': {
-      id: '/admin/products'
-      path: '/admin/products'
-      fullPath: '/admin/products'
-      preLoaderRoute: typeof AdminProductsRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/king/qr-scans': {
+      id: '/admin/king/qr-scans'
+      path: '/qr-scans'
+      fullPath: '/admin/king/qr-scans'
+      preLoaderRoute: typeof AdminKingQrScansRouteImport
+      parentRoute: typeof AdminKingRouteRoute
     }
-    '/admin/orders': {
-      id: '/admin/orders'
-      path: '/admin/orders'
-      fullPath: '/admin/orders'
-      preLoaderRoute: typeof AdminOrdersRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/king/qr': {
+      id: '/admin/king/qr'
+      path: '/qr'
+      fullPath: '/admin/king/qr'
+      preLoaderRoute: typeof AdminKingQrRouteImport
+      parentRoute: typeof AdminKingRouteRoute
     }
-    '/admin/login': {
-      id: '/admin/login'
-      path: '/admin/login'
-      fullPath: '/admin/login'
-      preLoaderRoute: typeof AdminLoginRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/king/products': {
+      id: '/admin/king/products'
+      path: '/products'
+      fullPath: '/admin/king/products'
+      preLoaderRoute: typeof AdminKingProductsRouteImport
+      parentRoute: typeof AdminKingRouteRoute
     }
-    '/admin/customers': {
-      id: '/admin/customers'
-      path: '/admin/customers'
-      fullPath: '/admin/customers'
-      preLoaderRoute: typeof AdminCustomersRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/king/orders': {
+      id: '/admin/king/orders'
+      path: '/orders'
+      fullPath: '/admin/king/orders'
+      preLoaderRoute: typeof AdminKingOrdersRouteImport
+      parentRoute: typeof AdminKingRouteRoute
     }
-    '/admin/cashback': {
-      id: '/admin/cashback'
-      path: '/admin/cashback'
-      fullPath: '/admin/cashback'
-      preLoaderRoute: typeof AdminCashbackRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/king/login': {
+      id: '/admin/king/login'
+      path: '/login'
+      fullPath: '/admin/king/login'
+      preLoaderRoute: typeof AdminKingLoginRouteImport
+      parentRoute: typeof AdminKingRouteRoute
+    }
+    '/admin/king/customers': {
+      id: '/admin/king/customers'
+      path: '/customers'
+      fullPath: '/admin/king/customers'
+      preLoaderRoute: typeof AdminKingCustomersRouteImport
+      parentRoute: typeof AdminKingRouteRoute
+    }
+    '/admin/king/cashback': {
+      id: '/admin/king/cashback'
+      path: '/cashback'
+      fullPath: '/admin/king/cashback'
+      preLoaderRoute: typeof AdminKingCashbackRouteImport
+      parentRoute: typeof AdminKingRouteRoute
     }
   }
 }
+
+interface AdminKingRouteRouteChildren {
+  AdminKingCashbackRoute: typeof AdminKingCashbackRoute
+  AdminKingCustomersRoute: typeof AdminKingCustomersRoute
+  AdminKingLoginRoute: typeof AdminKingLoginRoute
+  AdminKingOrdersRoute: typeof AdminKingOrdersRoute
+  AdminKingProductsRoute: typeof AdminKingProductsRoute
+  AdminKingQrRoute: typeof AdminKingQrRoute
+  AdminKingQrScansRoute: typeof AdminKingQrScansRoute
+  AdminKingTdsRoute: typeof AdminKingTdsRoute
+  AdminKingIndexRoute: typeof AdminKingIndexRoute
+}
+
+const AdminKingRouteRouteChildren: AdminKingRouteRouteChildren = {
+  AdminKingCashbackRoute: AdminKingCashbackRoute,
+  AdminKingCustomersRoute: AdminKingCustomersRoute,
+  AdminKingLoginRoute: AdminKingLoginRoute,
+  AdminKingOrdersRoute: AdminKingOrdersRoute,
+  AdminKingProductsRoute: AdminKingProductsRoute,
+  AdminKingQrRoute: AdminKingQrRoute,
+  AdminKingQrScansRoute: AdminKingQrScansRoute,
+  AdminKingTdsRoute: AdminKingTdsRoute,
+  AdminKingIndexRoute: AdminKingIndexRoute,
+}
+
+const AdminKingRouteRouteWithChildren = AdminKingRouteRoute._addFileChildren(
+  AdminKingRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -343,14 +400,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRoute,
   ReportRoute: ReportRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  AdminCashbackRoute: AdminCashbackRoute,
-  AdminCustomersRoute: AdminCustomersRoute,
-  AdminLoginRoute: AdminLoginRoute,
-  AdminOrdersRoute: AdminOrdersRoute,
-  AdminProductsRoute: AdminProductsRoute,
-  AdminQrRoute: AdminQrRoute,
-  AdminTdsRoute: AdminTdsRoute,
-  AdminIndexRoute: AdminIndexRoute,
+  AdminKingRouteRoute: AdminKingRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

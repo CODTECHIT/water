@@ -24,12 +24,12 @@ export const Route = createFileRoute("/products")({
 
 const WHATSAPP_BASE = "https://wa.me/918341574346";
 const WHATSAPP = `${WHATSAPP_BASE}?text=${encodeURIComponent(
-  "Hi King Water, I'd like to place an order."
+  "Hi King Water, I'd like to place an order.",
 )}`;
 
 function orderLink(title: string) {
   return `${WHATSAPP_BASE}?text=${encodeURIComponent(
-    `Hi King Water, I'd like to order ${title}. Please share delivery details.`
+    `Hi King Water, I'd like to order ${title}. Please share delivery details.`,
   )}`;
 }
 
@@ -66,8 +66,8 @@ function ProductsPage() {
             </h1>
           </div>
           <p className="max-w-md text-base leading-relaxed text-muted-foreground lg:col-span-5 lg:self-end">
-            Every can and bottle is filled, sealed and tested at the same facility. The
-            only real choice is how much of it you want at your door.
+            Every can and bottle is filled, sealed and tested at the same facility. The only real
+            choice is how much of it you want at your door.
           </p>
         </div>
       </section>
@@ -121,9 +121,8 @@ function ProductsPage() {
               Setting up a new office or a monthly plan for home?
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-              Message us with your address and how many cans or bottles you go through in a
-              week — we'll build a delivery schedule around it and lock in a
-              standing cashback.
+              Message us with your address and how many cans or bottles you go through in a week —
+              we'll build a delivery schedule around it and lock in a standing cashback.
             </p>
           </div>
           <div className="md:col-span-4 md:justify-self-end">
@@ -135,7 +134,10 @@ function ProductsPage() {
             >
               <MessageCircle size={16} />
               Talk to us on WhatsApp
-              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight
+                size={16}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </a>
           </div>
         </div>
@@ -152,19 +154,14 @@ type ProductData = {
   cashback?: string;
 };
 
-function ProductRow({
-  product,
-  index,
-}: {
-  product: ProductData;
-  index: number;
-}) {
+function ProductRow({ product, index }: { product: ProductData; index: number }) {
   const reversed = index % 2 === 1;
   return (
     <article className="border-b border-hairline">
       <div
-        className={`mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-10 px-6 py-16 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-24 ${reversed ? "lg:[&>div:first-child]:order-2" : ""
-          }`}
+        className={`mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-10 px-6 py-16 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-24 ${
+          reversed ? "lg:[&>div:first-child]:order-2" : ""
+        }`}
       >
         <div className="lg:col-span-6">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[6px] bg-secondary">

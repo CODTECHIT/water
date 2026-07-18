@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   FlaskConical,
@@ -12,15 +12,16 @@ import {
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { logoutAdmin } from "@/lib/adminAuth";
 
 const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/tds", label: "Water Quality Report", icon: FlaskConical },
-  { to: "/admin/orders", label: "Orders", icon: ShoppingCart },
-  { to: "/admin/customers", label: "Customers", icon: Users },
-  { to: "/admin/cashback", label: "Cashback Claims", icon: Wallet },
-  { to: "/admin/qr", label: "QR Codes", icon: QrCode },
-  { to: "/admin/products", label: "Products / Pricing", icon: Package },
+  { to: "/admin/king", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { to: "/admin/king/tds", label: "Water Quality Report", icon: FlaskConical },
+  { to: "/admin/king/orders", label: "Orders", icon: ShoppingCart },
+  { to: "/admin/king/customers", label: "Customers", icon: Users },
+  { to: "/admin/king/cashback", label: "Cashback Claims", icon: Wallet },
+  { to: "/admin/king/qr", label: "QR Generator", icon: QrCode },
+  { to: "/admin/king/qr-scans", label: "QR Scans", icon: QrCode },
 ];
 
 export function AdminShell({
@@ -36,6 +37,12 @@ export function AdminShell({
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    logoutAdmin();
+    navigate({ to: "/admin/king/login" });
+  };
 
   const isActive = (to: string, exact?: boolean) =>
     exact ? pathname === to : pathname === to || pathname.startsWith(to + "/");
@@ -55,9 +62,7 @@ export function AdminShell({
           </div>
           <div className="leading-tight">
             <div className="text-sm font-semibold text-slate-900">King Water</div>
-            <div className="text-[11px] uppercase tracking-wider text-slate-500">
-              Admin
-            </div>
+            <div className="text-[11px] uppercase tracking-wider text-slate-500">Admin</div>
           </div>
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
@@ -67,7 +72,7 @@ export function AdminShell({
             return (
               <Link
                 key={item.to}
-                to={item.to as "/admin"}
+                to={item.to}
                 onClick={() => setOpen(false)}
                 className={cn(
                   "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
@@ -83,13 +88,13 @@ export function AdminShell({
           })}
         </nav>
         <div className="border-t border-slate-200 p-3">
-          <Link
-            to={"/admin/login" as "/admin"}
-            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
+          <button
+            onClick={handleSignOut}
+            className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
           >
             <LogOut size={16} />
             Sign out
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -112,20 +117,9 @@ export function AdminShell({
           </button>
           <div className="flex-1">
             <h1 className="text-lg font-semibold text-slate-900">{title}</h1>
-            {description && (
-              <p className="text-xs text-slate-500">{description}</p>
-            )}
+            {description && <p className="text-xs text-slate-500">{description}</p>}
           </div>
           {actions}
-          <div className="hidden items-center gap-2 md:flex">
-            <div className="grid h-8 w-8 place-items-center rounded-full bg-slate-200 text-xs font-semibold text-slate-700">
-              AK
-            </div>
-            <div className="text-xs leading-tight">
-              <div className="font-medium text-slate-900">Arjun Kapoor</div>
-              <div className="text-slate-500">Operations</div>
-            </div>
-          </div>
         </header>
         <main className="p-4 lg:p-8">{children}</main>
       </div>

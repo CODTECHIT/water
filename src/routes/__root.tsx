@@ -1,10 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-} from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -81,8 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "King Water — Purity Fit for Royalty" },
       {
         property: "og:description",
-        content:
-          "Premium purified water and water-based beverages, delivered to your door.",
+        content: "Premium purified water and water-based beverages, delivered to your door.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

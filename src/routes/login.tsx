@@ -24,12 +24,12 @@ const WHATSAPP =
 
 function LoginPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
-  
+
   // Sign up fields
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  
+
   // Sign in fields
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -66,7 +66,8 @@ function LoginPage() {
             <em className="italic text-plum">back.</em>
           </h1>
           <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
-            Sign in to access your dashboard. Your cashback rewards, delivery schedules, and past batch reports are waiting inside.
+            Sign in to access your dashboard. Your cashback rewards, delivery schedules, and past
+            batch reports are waiting inside.
           </p>
 
           <ul className="mt-10 space-y-4 text-sm text-ink">
@@ -141,9 +142,12 @@ function LoginPage() {
                   className="group mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[5px] bg-plum px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-plum-deep"
                 >
                   Sign in
-                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
                 </button>
-                
+
                 <p className="mt-4 text-center text-xs text-muted-foreground">
                   Don't have an account?{" "}
                   <button
@@ -170,7 +174,7 @@ function LoginPage() {
                     className="mt-2 w-full rounded-[5px] border border-hairline bg-cream px-4 py-3.5 text-base text-ink outline-none transition-all focus:border-plum focus:bg-white focus:ring-2 focus:ring-plum/15"
                   />
                 </label>
-                
+
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <label className="block">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -219,9 +223,12 @@ function LoginPage() {
                   className="group mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[5px] bg-plum px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-plum-deep"
                 >
                   Create account
-                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
                 </button>
-                
+
                 <p className="mt-4 text-center text-xs text-muted-foreground">
                   Already have an account?{" "}
                   <button

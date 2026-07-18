@@ -58,12 +58,12 @@
   --radius: 0.375rem;
 
   /* Brand */
-  --plum: oklch(0.42 0.13 340);          /* ~#8E2A6B */
+  --plum: oklch(0.42 0.13 340); /* ~#8E2A6B */
   --plum-deep: oklch(0.32 0.11 340);
-  --gold: oklch(0.66 0.11 75);           /* ~#B8863B */
+  --gold: oklch(0.66 0.11 75); /* ~#B8863B */
   --gold-soft: oklch(0.78 0.08 80);
-  --cream: oklch(0.98 0.005 90);         /* ~#FAFAF7 */
-  --ink: oklch(0.32 0.005 270);          /* ~#333333 */
+  --cream: oklch(0.98 0.005 90); /* ~#FAFAF7 */
+  --ink: oklch(0.32 0.005 270); /* ~#333333 */
   --hairline: oklch(0.88 0.008 80);
 
   /* Semantic */
@@ -106,7 +106,10 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     font-weight: 400;
     letter-spacing: -0.02em;
@@ -134,10 +137,15 @@
   outline: none;
   transition: border-color 200ms ease;
 }
-.field::placeholder { color: color-mix(in oklab, var(--color-ink) 35%, transparent); }
-.field:focus { border-color: var(--color-plum); }
-select.field { background-image: none; }
-
+.field::placeholder {
+  color: color-mix(in oklab, var(--color-ink) 35%, transparent);
+}
+.field:focus {
+  border-color: var(--color-plum);
+}
+select.field {
+  background-image: none;
+}
 
 @utility reveal {
   opacity: 0;
@@ -171,8 +179,13 @@ select.field { background-image: none; }
 }
 
 @keyframes kw-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @utility drift {
@@ -180,8 +193,13 @@ select.field { background-image: none; }
 }
 
 @keyframes kw-drift {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50%      { transform: translate(6px, -8px) rotate(3deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(6px, -8px) rotate(3deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

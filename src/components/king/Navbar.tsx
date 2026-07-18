@@ -16,11 +16,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-hairline bg-cream/85 backdrop-blur">
       <div className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3 lg:px-10">
         <Link to="/" className="flex items-center gap-2" aria-label="King Water — home">
-          <img
-            src="/logo.png"
-            alt="King Water Logo"
-            className="h-10 w-auto md:h-11"
-          />
+          <img src="/logo.png" alt="King Water Logo" className="h-10 w-auto md:h-11" />
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">

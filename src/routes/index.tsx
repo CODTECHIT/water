@@ -1,11 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, MessageCircle, ShieldCheck, Droplets, Truck, BadgeCheck, QrCode } from "lucide-react";
+import {
+  ArrowUpRight,
+  MessageCircle,
+  ShieldCheck,
+  Droplets,
+  Truck,
+  BadgeCheck,
+  QrCode,
+} from "lucide-react";
 import { SiteLayout } from "@/components/king/SiteLayout";
 import { CrownIcon } from "@/components/king/CrownIcon";
 import { Reveal } from "@/components/king/Reveal";
 import heroWater from "@/assets/hero-water.jpg";
 import aboutDroplet from "@/assets/about-droplet.jpg";
-
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -38,7 +45,10 @@ function HomePage() {
       <section className="relative overflow-hidden">
         <div className="mx-auto grid max-w-[1240px] grid-cols-1 gap-10 px-6 pb-16 pt-14 lg:grid-cols-12 lg:gap-8 lg:px-10 lg:pb-28 lg:pt-24">
           <div className="lg:col-span-7 lg:pr-8">
-            <div className="reveal flex items-center gap-2 text-gold" style={{ animationDelay: "0.05s" }}>
+            <div
+              className="reveal flex items-center gap-2 text-gold"
+              style={{ animationDelay: "0.05s" }}
+            >
               <CrownIcon size={16} />
               <span className="eyebrow !text-gold">A Royal Standard of Purity</span>
             </div>
@@ -56,12 +66,14 @@ function HomePage() {
               className="reveal mt-8 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
               style={{ animationDelay: "0.2s" }}
             >
-              King Water delivers purified drinking water and water-based beverages
-              to homes and offices — daily TDS tested, sealed at source, and
-              carried straight to your doorstep.
+              King Water delivers purified drinking water and water-based beverages to homes and
+              offices — daily TDS tested, sealed at source, and carried straight to your doorstep.
             </p>
 
-            <div className="reveal mt-10 flex flex-wrap items-center gap-6" style={{ animationDelay: "0.28s" }}>
+            <div
+              className="reveal mt-10 flex flex-wrap items-center gap-6"
+              style={{ animationDelay: "0.28s" }}
+            >
               <a
                 href={WHATSAPP}
                 target="_blank"
@@ -70,7 +82,10 @@ function HomePage() {
               >
                 <MessageCircle size={16} />
                 Order on WhatsApp
-                <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </a>
               <Link
                 to="/products"
@@ -126,8 +141,8 @@ function HomePage() {
               </h2>
             </div>
             <p className="max-w-sm text-sm leading-relaxed text-muted-foreground lg:col-span-5">
-              Pick a pack that suits your household or office. Both include
-              same-day dispatch in service areas.
+              Pick a pack that suits your household or office. Both include same-day dispatch in
+              service areas.
             </p>
           </div>
         </Reveal>
@@ -159,7 +174,10 @@ function HomePage() {
             className="group inline-flex items-center gap-2 text-sm font-semibold text-ink underline decoration-gold decoration-2 underline-offset-8 transition-colors hover:text-plum"
           >
             See more details
-            <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight
+              size={14}
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
           </Link>
         </Reveal>
       </section>
@@ -173,7 +191,8 @@ function HomePage() {
               Scan. Order. Earn.
             </h2>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Get rewarded for every drop you drink. Claim your cashback effortlessly on water can orders.
+              Get rewarded for every drop you drink. Claim your cashback effortlessly on water can
+              orders.
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-8 md:flex-row md:gap-16">
@@ -229,10 +248,9 @@ function HomePage() {
               <em className="italic text-plum">poured into every can and bottle.</em>
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-              King Water started with one rule — the same purity we expect for
-              our own kitchen is the only purity we send to yours. Every batch
-              is TDS tested, sealed at source, and dispatched on a schedule
-              you can trust.
+              King Water started with one rule — the same purity we expect for our own kitchen is
+              the only purity we send to yours. Every batch is TDS tested, sealed at source, and
+              dispatched on a schedule you can trust.
             </p>
 
             <ul className="mt-8 grid grid-cols-1 gap-3 text-sm text-ink sm:grid-cols-2">
@@ -254,12 +272,14 @@ function HomePage() {
               className="group mt-10 inline-flex items-center gap-2 text-sm font-semibold text-ink underline decoration-gold decoration-2 underline-offset-8 transition-colors hover:text-plum"
             >
               Read the full story
-              <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight
+                size={14}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </Link>
           </Reveal>
         </div>
       </section>
-
 
       {/* QR / DIGITAL SECTION */}
       <section className="border-t border-hairline bg-white/40">
@@ -272,9 +292,8 @@ function HomePage() {
               <em className="italic text-plum">that talks back.</em>
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-              Scan the QR on your can or bottle to trace its source, view the day's TDS
-              report, and instantly claim your cashback. No apps, no accounts —
-              just a receipt of trust.
+              Scan the QR on your can or bottle to trace its source, view the day's TDS report, and
+              instantly claim your cashback. No apps, no accounts — just a receipt of trust.
             </p>
             <ul className="mt-8 space-y-3 text-sm text-ink">
               <QrPoint>Batch traceability with a single scan</QrPoint>
@@ -314,8 +333,9 @@ function ProductCard({
 }) {
   return (
     <article
-      className={`group relative flex flex-col overflow-hidden rounded-[6px] border border-hairline bg-white transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(51,51,51,0.18)] ${featured ? "md:translate-y-8" : ""
-        }`}
+      className={`group relative flex flex-col overflow-hidden rounded-[6px] border border-hairline bg-white transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(51,51,51,0.18)] ${
+        featured ? "md:translate-y-8" : ""
+      }`}
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
         <img
@@ -372,26 +392,23 @@ function QrPlaceholder() {
       {cells.map((_, i) => {
         const x = i % 25;
         const y = Math.floor(i / 25);
-        const inCorner =
-          (x < 7 && y < 7) ||
-          (x > 17 && y < 7) ||
-          (x < 7 && y > 17);
+        const inCorner = (x < 7 && y < 7) || (x > 17 && y < 7) || (x < 7 && y > 17);
         const cornerRing =
           inCorner &&
-          ((x === 0 || x === 6 || y === 0 || y === 6 ||
-            x === 18 || x === 24 || y === 18 || y === 24 ||
+          (x === 0 ||
+            x === 6 ||
+            y === 0 ||
+            y === 6 ||
+            x === 18 ||
+            x === 24 ||
+            y === 18 ||
+            y === 24 ||
             (x >= 2 && x <= 4 && y >= 2 && y <= 4) ||
             (x >= 20 && x <= 22 && y >= 2 && y <= 4) ||
-            (x >= 2 && x <= 4 && y >= 20 && y <= 22)));
-        const noise = ((x * 7 + y * 13 + x * y) % 5) < 2;
+            (x >= 2 && x <= 4 && y >= 20 && y <= 22));
+        const noise = (x * 7 + y * 13 + x * y) % 5 < 2;
         const filled = cornerRing || (!inCorner && noise);
-        return (
-          <span
-            key={i}
-            className={filled ? "bg-ink" : ""}
-            style={{ borderRadius: 1 }}
-          />
-        );
+        return <span key={i} className={filled ? "bg-ink" : ""} style={{ borderRadius: 1 }} />;
       })}
     </div>
   );

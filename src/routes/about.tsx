@@ -27,26 +27,22 @@ const reasons = [
   {
     n: "01",
     title: "Tested every single day",
-    body:
-      "A fresh TDS and microbial check on every batch, before a single can leaves the plant. The report travels with the crate.",
+    body: "A fresh TDS and microbial check on every batch, before a single can leaves the plant. The report travels with the crate.",
   },
   {
     n: "02",
     title: "Sealed at source, opened at yours",
-    body:
-      "Every can is filled, capped and shrink-sealed at our facility. No hand-transfers between plant and doorstep.",
+    body: "Every can is filled, capped and shrink-sealed at our facility. No hand-transfers between plant and doorstep.",
   },
   {
     n: "03",
     title: "Delivered like clockwork",
-    body:
-      "Route-based dispatch with predictable arrival windows — because water is not a surprise, it's a schedule.",
+    body: "Route-based dispatch with predictable arrival windows — because water is not a surprise, it's a schedule.",
   },
   {
     n: "04",
     title: "Serving those who notice",
-    body:
-      "Households with young children, homes caring for elderly parents, offices that pour water for guests — you are our quality control.",
+    body: "Households with young children, homes caring for elderly parents, offices that pour water for guests — you are our quality control.",
   },
 ];
 
@@ -63,10 +59,9 @@ function AboutPage() {
           </div>
           <div className="lg:col-span-9">
             <p className="font-display text-3xl leading-[1.15] text-ink sm:text-4xl lg:text-[52px]">
-              <em className="italic text-plum">"</em>We started King Water because we
-              wanted the same standard of purity for a stranger's home that we
-              expected for our mother's kitchen. That is still the whole
-              business.<em className="italic text-plum">"</em>
+              <em className="italic text-plum">"</em>We started King Water because we wanted the
+              same standard of purity for a stranger's home that we expected for our mother's
+              kitchen. That is still the whole business.<em className="italic text-plum">"</em>
             </p>
             <p className="mt-6 text-sm uppercase tracking-[0.2em] text-muted-foreground">
               — The founding family
@@ -103,9 +98,7 @@ function AboutPage() {
                   <span className="font-display text-2xl text-gold">{r.n}</span>
                   <div>
                     <h3 className="font-display text-2xl leading-tight text-ink">{r.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {r.body}
-                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{r.body}</p>
                   </div>
                 </li>
               ))}
@@ -127,17 +120,13 @@ function AboutPage() {
           </div>
           <div className="lg:col-span-5">
             <p className="text-base leading-relaxed text-muted-foreground">
-              A lot of our customers are children, elderly parents, and people
-              managing sensitive health. We keep our process simple and boring
-              on purpose — same source, same test, same seal, every single day.
-              If anything looks off, the batch doesn't ship.
+              A lot of our customers are children, elderly parents, and people managing sensitive
+              health. We keep our process simple and boring on purpose — same source, same test,
+              same seal, every single day. If anything looks off, the batch doesn't ship.
             </p>
           </div>
         </div>
       </section>
-
-
-
     </SiteLayout>
   );
 }

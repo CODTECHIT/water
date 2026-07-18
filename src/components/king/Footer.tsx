@@ -35,10 +35,26 @@ export function Footer() {
               Explore
             </h4>
             <ul className="mt-5 space-y-3 text-sm text-cream/80">
-              <li><Link to="/" className="hover:text-cream">Home</Link></li>
-              <li><Link to="/products" className="hover:text-cream">Products</Link></li>
-              <li><Link to="/about" className="hover:text-cream">About</Link></li>
-              <li><Link to="/contact" className="hover:text-cream">Contact</Link></li>
+              <li>
+                <Link to="/" className="hover:text-cream">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/products" className="hover:text-cream">
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-cream">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-cream">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 

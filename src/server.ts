@@ -44,18 +44,64 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+// Simple in-memory rate limiter
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 200;
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+
+  if (!record || record.resetAt < now) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false;
+  }
+
+  record.count += 1;
+  return true;
+}
+
+function applySecurityHeaders(response: Response): Response {
+  const secureHeaders = new Headers(response.headers);
+  secureHeaders.set("X-Frame-Options", "DENY");
+  secureHeaders.set("X-Content-Type-Options", "nosniff");
+  secureHeaders.set("X-XSS-Protection", "1; mode=block");
+  secureHeaders.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  secureHeaders.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: secureHeaders,
+  });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // Rate Limiting Check
+    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    if (!checkRateLimit(ip)) {
+      return new Response("Too Many Requests", { status: 429 });
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
+      return applySecurityHeaders(normalizedResponse);
     } catch (error) {
       console.error(error);
-      return new Response(renderErrorPage(), {
-        status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
-      });
+      return applySecurityHeaders(
+        new Response(renderErrorPage(), {
+          status: 500,
+          headers: { "content-type": "text/html; charset=utf-8" },
+        }),
+      );
     }
   },
 };
