@@ -4,6 +4,8 @@ import { ArrowUpRight, MessageCircle, Chrome } from "lucide-react";
 import { SiteLayout } from "@/components/king/SiteLayout";
 import { CrownIcon } from "@/components/king/CrownIcon";
 import { Reveal } from "@/components/king/Reveal";
+import { supabase } from "@/lib/supabase";
+import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -35,21 +37,60 @@ function LoginPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
 
-  const handleGoogleSignIn = () => {
-    // Supabase OAuth logic goes here
-    console.log("Signing in with Google");
+  const navigate = useNavigate({ from: "/login" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleGoogleSignIn = async () => {
+    setError(null);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    if (error) setError(error.message);
   };
 
-  const handleSignIn = (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Supabase Email/Password login logic goes here
-    console.log("Signing in", { loginEmail, loginPassword });
+    setIsLoading(true);
+    setError(null);
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      email: loginEmail,
+      password: loginPassword,
+    });
+    
+    if (signInError) {
+      setError(signInError.message);
+    } else if (data.user) {
+      // Redirect or handle successful login
+      // navigate({ to: "/dashboard" }); // Un-comment when dashboard exists
+      console.log("Signed in successfully!");
+    }
+    setIsLoading(false);
   };
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Supabase Signup logic goes here (create user + insert into public.customers with phone number)
-    console.log("Signing up", { name, email, phone, signupPassword });
+    setIsLoading(true);
+    setError(null);
+
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password: signupPassword,
+      options: {
+        data: {
+          full_name: name,
+          phone: phone,
+        }
+      }
+    });
+
+    if (signUpError) {
+      setError(signUpError.message);
+    } else {
+      alert("Registration successful! Check your email to verify your account if email confirmation is enabled.");
+      setMode("signin");
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -91,12 +132,14 @@ function LoginPage() {
               {mode === "signin" ? "Sign in to King Water" : "Enter your details"}
             </h2>
 
-
-
-
+            {error && (
+              <div className="mt-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+                {error}
+              </div>
+            )}
 
             {mode === "signin" ? (
-              <form className="space-y-5" onSubmit={handleSignIn}>
+              <form className="mt-6 space-y-5" onSubmit={handleSignIn}>
                 <label className="block">
                   <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     Email address
@@ -126,9 +169,10 @@ function LoginPage() {
 
                 <button
                   type="submit"
-                  className="group mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[5px] bg-plum px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-plum-deep"
+                  disabled={isLoading}
+                  className="group mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[5px] bg-plum px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-plum-deep disabled:opacity-70 disabled:hover:translate-y-0"
                 >
-                  Sign in
+                  {isLoading ? "Signing in..." : "Sign in"}
                   <ArrowUpRight
                     size={16}
                     className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -147,7 +191,7 @@ function LoginPage() {
                 </p>
               </form>
             ) : (
-              <form className="space-y-5" onSubmit={handleSignUp}>
+              <form className="mt-6 space-y-5" onSubmit={handleSignUp}>
                 <label className="block">
                   <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     Full Name
@@ -207,9 +251,10 @@ function LoginPage() {
 
                 <button
                   type="submit"
-                  className="group mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[5px] bg-plum px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-plum-deep"
+                  disabled={isLoading}
+                  className="group mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[5px] bg-plum px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-plum-deep disabled:opacity-70 disabled:hover:translate-y-0"
                 >
-                  Create account
+                  {isLoading ? "Creating account..." : "Create account"}
                   <ArrowUpRight
                     size={16}
                     className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
