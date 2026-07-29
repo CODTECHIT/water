@@ -13,11 +13,16 @@ export const Route = createFileRoute("/products")({
         content:
           "King Water cans and bottles. Editorial-quality purified water for homes and offices.",
       },
+      {
+        name: "keywords",
+        content: "water cans, water bottles, king water products, 15 can pack, 30 can pack, purified water bottles, office water delivery",
+      },
       { property: "og:title", content: "Products — King Water" },
       {
         property: "og:description",
         content: "Bulk cans and bottle packs of King Water.",
       },
+      { property: "og:url", content: "https://www.kingwatercompany.com/products" },
     ],
   }),
 });

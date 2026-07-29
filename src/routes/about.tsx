@@ -13,12 +13,17 @@ export const Route = createFileRoute("/about")({
         content:
           "The story behind King Water — a family-run water brand built on daily TDS testing, sealed dispatch, and quiet reliability.",
       },
+      {
+        name: "keywords",
+        content: "about king water, family run water brand, TDS testing, king water story, safe water delivery",
+      },
       { property: "og:title", content: "About — King Water" },
       {
         property: "og:description",
         content:
           "A family-run water brand built on daily testing, sealed dispatch, and quiet reliability.",
       },
+      { property: "og:url", content: "https://www.kingwatercompany.com/about" },
     ],
   }),
 });

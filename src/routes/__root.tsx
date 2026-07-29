@@ -72,14 +72,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Premium purified water and water-based beverages, delivered to households and offices. Daily TDS tested. FSSAI registered.",
       },
+      {
+        name: "keywords",
+        content: "purified water delivery, water cans, bottled water, King Water, daily TDS tested water, FSSAI registered water, premium water delivery, cash back on water, water for home, office water delivery, kingwatercompany, king water company",
+      },
       { name: "author", content: "King Water" },
       { property: "og:title", content: "King Water — Purity Fit for Royalty" },
+      { property: "og:site_name", content: "King Water" },
+      { property: "og:url", content: "https://www.kingwatercompany.com" },
       {
         property: "og:description",
         content: "Premium purified water and water-based beverages, delivered to your door.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "King Water — Purity Fit for Royalty" },
+      { name: "twitter:description", content: "Premium purified water and water-based beverages, delivered to your door." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

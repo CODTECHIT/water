@@ -15,11 +15,16 @@ export const Route = createFileRoute("/contact")({
         content:
           "Get in touch with King Water. Share your order details and we'll continue the conversation on WhatsApp.",
       },
+      {
+        name: "keywords",
+        content: "contact king water, order water, king water phone number, king water whatsapp, water delivery contact",
+      },
       { property: "og:title", content: "Contact — King Water" },
       {
         property: "og:description",
         content: "Send us your details — we'll pick up the conversation on WhatsApp.",
       },
+      { property: "og:url", content: "https://www.kingwatercompany.com/contact" },
     ],
   }),
 });

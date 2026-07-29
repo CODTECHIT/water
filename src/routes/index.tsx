@@ -18,12 +18,18 @@ export const Route = createFileRoute("/")({
   component: HomePage,
   head: () => ({
     meta: [
-      { title: "King Water — Purity Fit for Royalty" },
+      { title: "King Water — Home | Purity Fit for Royalty" },
       {
         name: "description",
         content:
           "Purified water and water-based beverages delivered to households and offices. Order the 15 or 30 can pack on WhatsApp.",
       },
+      {
+        name: "keywords",
+        content: "home water delivery, king water delivery, order water online, premium water, daily TDS tested",
+      },
+      { property: "og:title", content: "King Water — Home | Purity Fit for Royalty" },
+      { property: "og:url", content: "https://www.kingwatercompany.com/" },
     ],
   }),
 });
