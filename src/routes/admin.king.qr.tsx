@@ -12,7 +12,7 @@ export const Route = createFileRoute("/admin/king/qr")({
 });
 
 function QRCodePage() {
-  const [url, setUrl] = useState("https://kingwater.com/report");
+  const [url, setUrl] = useState("https://www.kingwatercompany.com/report");
 
   const downloadQR = () => {
     const svg = document.getElementById("QRCode");

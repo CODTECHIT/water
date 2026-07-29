@@ -10,10 +10,9 @@ import {
   Menu,
   QrCode,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { logoutAdmin } from "@/lib/adminAuth";
-
+import { supabase } from "@/lib/supabase";
 const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/admin/king", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/king/tds", label: "Water Quality Report", icon: FlaskConical },
@@ -39,13 +38,43 @@ export function AdminShell({
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    logoutAdmin();
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
     navigate({ to: "/admin/king/login" });
   };
 
   const isActive = (to: string, exact?: boolean) =>
     exact ? pathname === to : pathname === to || pathname.startsWith(to + "/");
+
+  // State for tracking pending QR requests
+
+  const [pendingQr, setPendingQr] = useState(0);
+
+  useEffect(() => {
+    const fetchPending = async () => {
+      const { count } = await supabase
+        .from('qr_requests')
+        .select('*', { count: 'exact', head: true })
+        .ilike('status', 'pending');
+      
+      setPendingQr(count || 0);
+    };
+
+    fetchPending();
+
+    const sub = supabase.channel('qr_requests_channel')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'qr_requests' }, () => {
+        fetchPending();
+      })
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'qr_requests' }, () => {
+        fetchPending();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(sub);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen w-full bg-slate-50 font-sans text-slate-900">
@@ -75,14 +104,21 @@ export function AdminShell({
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  "flex items-center justify-between gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                   Active
                     ? "bg-[#8E2A6B] text-white"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
                 )}
               >
-                <Icon size={16} />
-                {item.label}
+                <div className="flex items-center gap-3">
+                  <Icon size={16} />
+                  {item.label}
+                </div>
+                {item.to === "/admin/king/qr-scans" && pendingQr > 0 && (
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white shadow-sm animate-pulse">
+                    {pendingQr}
+                  </span>
+                )}
               </Link>
             );
           })}

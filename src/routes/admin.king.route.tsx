@@ -1,17 +1,22 @@
 import { createFileRoute, redirect, Outlet } from "@tanstack/react-router";
-import { checkAdminSession } from "@/lib/adminAuth";
+import { supabase } from "@/lib/supabase";
+
+const ADMIN_EMAIL = "kingwatercompany@gmail.com";
 
 export const Route = createFileRoute("/admin/king")({
   beforeLoad: async ({ location }) => {
-    // Skip the check if we are going to the login page itself
     if (location.pathname === "/admin/king/login") {
       return;
     }
 
-    // Check if the secure cookie is present and valid
-    const isAuthenticated = checkAdminSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
-    if (!isAuthenticated) {
+    if (!session || session.user.email !== ADMIN_EMAIL) {
+      if (session) {
+        await supabase.auth.signOut();
+      }
       throw redirect({
         to: "/admin/king/login",
       });

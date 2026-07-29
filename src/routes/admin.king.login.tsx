@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { useState } from "react";
-import { loginAdmin } from "@/lib/adminAuth";
+import { supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/admin/king/login")({
   component: AdminLogin,
@@ -15,23 +15,30 @@ export const Route = createFileRoute("/admin/king/login")({
 
 function AdminLogin() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
-    const success = loginAdmin(username, password);
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-    if (success) {
-      navigate({ to: "/admin/king" });
-    } else {
-      setError("Invalid username or password.");
+    if (signInError) {
+      setError(signInError.message);
       setIsLoading(false);
+    } else if (data.session?.user?.email !== "kingwatercompany@gmail.com") {
+      await supabase.auth.signOut();
+      setError("Unauthorized access.");
+      setIsLoading(false);
+    } else {
+      navigate({ to: "/admin/king" });
     }
   };
 
@@ -59,17 +66,17 @@ function AdminLogin() {
 
           <div>
             <label
-              htmlFor="admin-username"
+              htmlFor="admin-email"
               className="block text-sm font-medium text-slate-700"
             >
-              Username
+              Email Address
             </label>
             <input
-              id="admin-username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              autoComplete="username"
+              id="admin-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
               className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-[#8E2A6B] focus:outline-none focus:ring-1 focus:ring-[#8E2A6B]"
               required
             />

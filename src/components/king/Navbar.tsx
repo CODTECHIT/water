@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const links = [
   { to: "/", label: "Home" },
@@ -11,6 +12,21 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 border-b border-hairline bg-cream/85 backdrop-blur">
@@ -30,13 +46,31 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          
           <Link
-            to="/login"
-            className="text-[13px] font-medium tracking-wide text-muted-foreground transition-colors hover:text-plum"
-            activeProps={{ className: "text-plum" }}
+            to="/report"
+            className="text-[13px] font-semibold tracking-wide text-white bg-[#8E2A6B] hover:bg-[#7a225a] px-4 py-2 rounded-full transition-all shadow-sm"
           >
-            Login
+            Check Water TDS
           </Link>
+
+          {session ? (
+            <Link
+              to="/dashboard"
+              className="text-[13px] font-medium tracking-wide text-[#8E2A6B] transition-colors hover:text-plum/80"
+              activeProps={{ className: "text-plum" }}
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="text-[13px] font-medium tracking-wide text-muted-foreground transition-colors hover:text-plum"
+              activeProps={{ className: "text-plum" }}
+            >
+              Login
+            </Link>
+          )}
         </nav>
 
         <button
@@ -62,13 +96,32 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
+            
             <Link
-              to="/login"
+              to="/report"
               onClick={() => setOpen(false)}
-              className="py-3 text-sm font-medium text-muted-foreground"
+              className="py-3 text-sm font-bold text-[#8E2A6B]"
             >
-              Login
+              Check Water TDS
             </Link>
+
+            {session ? (
+              <Link
+                to="/dashboard"
+                onClick={() => setOpen(false)}
+                className="py-3 text-sm font-medium text-slate-800"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                className="py-3 text-sm font-medium text-muted-foreground"
+              >
+                Login
+              </Link>
+            )}
           </nav>
         </div>
       )}

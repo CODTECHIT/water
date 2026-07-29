@@ -61,9 +61,7 @@ function LoginPage() {
     if (signInError) {
       setError(signInError.message);
     } else if (data.user) {
-      // Redirect or handle successful login
-      // navigate({ to: "/dashboard" }); // Un-comment when dashboard exists
-      console.log("Signed in successfully!");
+      navigate({ to: "/dashboard" });
     }
     setIsLoading(false);
   };
@@ -87,7 +85,7 @@ function LoginPage() {
     if (signUpError) {
       setError(signUpError.message);
     } else {
-      alert("Registration successful! Check your email to verify your account if email confirmation is enabled.");
+      alert("Registration successful!");
       setMode("signin");
     }
     setIsLoading(false);
