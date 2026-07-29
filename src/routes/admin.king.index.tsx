@@ -72,7 +72,7 @@ function DashboardPage() {
         supabase.from("users").select("*", { count: "exact", head: true }),
         supabase.from("cashback_claims").select("amount").eq("status", "Pending"),
         supabase.from("orders").select("quantity, products(name)").gte("ordered_at", startOfMonth.toISOString()),
-        supabase.from("tds_reports").select("report_date, uploaded_by").order("report_date", { ascending: false }).limit(1).single(),
+        supabase.from("tds_reports").select("report_date, uploaded_by").order("report_date", { ascending: false }).order("created_at", { ascending: false }).limit(1).single(),
         supabase.from("orders").select("id, status, ordered_at, quantity, users(name), products(name)").order("ordered_at", { ascending: false }).limit(5),
         supabase.from("cashback_claims").select("id, status, claimed_at, amount, users(name)").order("claimed_at", { ascending: false }).limit(5)
       ]);

@@ -37,6 +37,7 @@ function WaterQualityEditor() {
         .from("tds_reports")
         .select("*")
         .order("report_date", { ascending: false })
+        .order("created_at", { ascending: false })
         .limit(1)
         .single();
 
