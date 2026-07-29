@@ -91,22 +91,9 @@ function LoginPage() {
               {mode === "signin" ? "Sign in to King Water" : "Enter your details"}
             </h2>
 
-            <div className="mt-8">
-              <button
-                type="button"
-                onClick={handleGoogleSignIn}
-                className="group flex w-full items-center justify-center gap-3 rounded-[5px] border border-hairline bg-white px-6 py-3.5 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:border-plum hover:text-plum hover:shadow-sm"
-              >
-                <Chrome size={18} />
-                Continue with Google
-              </button>
-            </div>
 
-            <div className="my-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-              <span className="h-px flex-1 bg-hairline" />
-              or
-              <span className="h-px flex-1 bg-hairline" />
-            </div>
+
+
 
             {mode === "signin" ? (
               <form className="space-y-5" onSubmit={handleSignIn}>
